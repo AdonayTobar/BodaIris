@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generador de Invitaciones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-10">
+    <div class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-md">
+        <h1 class="text-2xl font-bold mb-6">Generar Invitación</h1>
+        <input id="nombre" placeholder="Nombre del Invitado" class="w-full border p-3 rounded-lg mb-4">
+        <input id="acompanantes" type="number" placeholder="Cantidad de acompañantes" class="w-full border p-3 rounded-lg mb-4">
+        <button onclick="generar()" class="w-full bg-pink-500 text-white p-3 rounded-lg">Generar Link</button>
+        <div id="resultado" class="mt-6 p-4 bg-gray-50 rounded hidden">
+            <p class="text-sm font-bold">Tu link personalizado:</p>
+            <a id="link" target="_blank" class="text-blue-600 underline break-all"></a>
+        </div>
+    </div>
+
+    <script>
+        function generar() {
+            const nombre = document.getElementById('nombre').value;
+            const cant = document.getElementById('acompanantes').value;
+            const baseUrl = window.location.origin + "/index.html"; 
+            const link = `${baseUrl}?nombre=${encodeURIComponent(nombre)}&cant=${encodeURIComponent(cant)}`;
+            document.getElementById('link').href = link;
+            document.getElementById('link').innerText = link;
+            document.getElementById('resultado').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
