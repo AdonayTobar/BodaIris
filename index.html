@@ -21,7 +21,7 @@
         function generar() {
             const nombre = document.getElementById('nombre').value;
             const cant = document.getElementById('acompanantes').value;
-            const baseUrl = window.location.origin + "/boda.html"; 
+            const baseUrl = window.location.origin + "boda.html"; 
             const link = `${baseUrl}?nombre=${encodeURIComponent(nombre)}&cant=${encodeURIComponent(cant)}`;
             document.getElementById('link').href = link;
             document.getElementById('link').innerText = link;
