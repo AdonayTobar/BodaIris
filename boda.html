@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boda Iris & Carlos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background: white; overflow-x: hidden; }
+        .title { font-family: 'Cormorant Garamond', serif; }
+        .hero-bg {
+            background: linear-gradient(rgba(255,255,255,.35),rgba(255,255,255,.45)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+        }
+        .fade-up { opacity: 0; transform: translateY(40px); transition: all 1s ease; }
+        .fade-up.show { opacity: 1; transform: translateY(0); }
+        
+        .gallery-item { overflow: hidden; border-radius: 1.5rem; cursor: pointer; }
+        .gallery-item img { transition: transform 0.5s ease; width: 100%; height: 300px; object-fit: cover; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        
+        .glass { backdrop-filter: blur(14px); background: rgba(255,255,255,.55); border: 1px solid rgba(255,255,255,.4); }
+        .petals { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
+        .petal { position: absolute; color: #E6ACBF; animation: fall linear infinite; opacity: .8; }
+        @keyframes fall { 0% { transform: translateY(-100px) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg); } }
+        
+        .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.9); display: none; justify-content: center; align-items: center; z-index: 9999; padding: 20px; }
+        .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .gold { color: #D4AF37; }
+    </style>
+</head>
+<body>
+
+<div class="petals" id="petals"></div>
+
+<!-- HERO -->
+<section class="hero-bg min-h-screen flex items-center justify-center text-center">
+    <div class="glass p-10 rounded-3xl max-w-3xl mx-5">
+        <p class="uppercase tracking-[6px] text-gray-700">Nos Casamos</p>
+        <h1 class="title text-7xl md:text-8xl gold">Iris & Carlos</h1>
+        <div class="w-40 h-[2px] bg-[#D4AF37] mx-auto my-5"></div>
+        <p class="text-xl text-gray-700">Tenemos el honor de invitar a</p>
+        <h2 id="nombreInvitado" class="title text-5xl text-[#E6ACBF] mt-3">Nuestro Invitado</h2>
+        <p id="cantInvitados" class="mt-3 text-lg text-gray-600">y acompañantes</p>
+        <button onclick="document.getElementById('galeria').scrollIntoView({behavior:'smooth'})"
+                class="mt-8 bg-[#E6ACBF] hover:bg-pink-400 text-white px-8 py-4 rounded-full transition">Ver Invitación</button>
+    </div>
+</section>
+
+<!-- CUENTA REGRESIVA -->
+<section class="py-24 bg-[#fff8fb] fade-up">
+    <h2 class="title text-center text-5xl mb-10">✿ Cuenta Regresiva ✿</h2>
+    <div class="flex justify-center gap-6 flex-wrap">
+        <div class="glass p-6 rounded-2xl text-center min-w-[100px]"><div id="days" class="text-4xl font-bold">0</div>Días</div>
+        <div class="glass p-6 rounded-2xl text-center min-w-[100px]"><div id="hours" class="text-4xl font-bold">0</div>Horas</div>
+        <div class="glass p-6 rounded-2xl text-center min-w-[100px]"><div id="minutes" class="text-4xl font-bold">0</div>Min</div>
+        <div class="glass p-6 rounded-2xl text-center min-w-[100px]"><div id="seconds" class="text-4xl font-bold">0</div>Seg</div>
+    </div>
+</section>
+
+<!-- GALERIA DE FOTOS -->
+<section id="galeria" class="py-24 px-6 fade-up">
+    <div class="max-w-6xl mx-auto">
+        <h2 class="title text-center text-5xl mb-4">✿ Nuestra Historia ✿</h2>
+        <p class="text-center text-gray-600 mb-12 italic">"Cada momento a tu lado es un tesoro"</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="gallery-item shadow-lg" onclick="openLightbox(this.querySelector('img').src)"><img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=600" alt="Boda 1"></div>
+            <div class="gallery-item shadow-lg" onclick="openLightbox(this.querySelector('img').src)"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600" alt="Boda 2"></div>
+            <div class="gallery-item shadow-lg" onclick="openLightbox(this.querySelector('img').src)"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=600" alt="Boda 3"></div>
+            <div class="gallery-item shadow-lg" onclick="openLightbox(this.querySelector('img').src)"><img src="https://images.unsplash.com/photo-1522673607200-1648482ce486?q=80&w=600" alt="Boda 4"></div>
+            <div class="gallery-item shadow-lg" onclick="openLightbox(this.querySelector('img').src)"><img src="https://images.unsplash.com/photo-1465495910483-0d674115f97d?q=80&w=600" alt="Boda 5"></div>
+            <div class="gallery-item shadow-lg" onclick="openLightbox(this.querySelector('img').src)"><img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=600" alt="Boda 6"></div>
+        </div>
+    </div>
+</section>
+
+<!-- DETALLES DEL EVENTO -->
+<section id="detalles" class="py-24 fade-up">
+    <div class="max-w-3xl mx-auto glass p-12 rounded-3xl shadow-xl text-center">
+        <h2 class="title text-5xl mb-10 text-[#E6ACBF]">✿ Detalles del Evento ✿</h2>
+        <div class="grid md:grid-cols-3 gap-8 mb-10">
+            <div><h3 class="font-bold text-lg">Fecha</h3><p>20 dic, 2026</p></div>
+            <div><h3 class="font-bold text-lg">Hora</h3><p>4:00 PM</p></div>
+            <div><h3 class="font-bold text-lg">Lugar</h3><p>Los Jardines</p></div>
+        </div>
+        <a href="https://maps.google.com" target="_blank" class="inline-block bg-[#D4AF37] hover:bg-yellow-600 text-white px-8 py-3 rounded-full font-bold transition shadow-md">
+            Ver Ubicación en Mapa 🗺️
+        </a>
+    </div>
+</section>
+
+<!-- CONFIRMACION -->
+<section class="py-24 bg-[#fff8fb] fade-up">
+    <div class="max-w-xl mx-auto px-6">
+        <h2 class="title text-center text-5xl mb-10">✿ Confirmar Asistencia ✿</h2>
+        <div class="glass p-8 rounded-3xl shadow-lg">
+            <input id="nombreForm" placeholder="Nombre completo" class="w-full border p-4 rounded-xl mb-4 focus:outline-none focus:ring-2 focus:ring-[#E6ACBF]">
+            <label class="block text-gray-600 mb-2 ml-1">Número de asistentes:</label>
+            <select id="asistentes" class="w-full border p-4 rounded-xl mb-4 focus:outline-none focus:ring-2 focus:ring-[#E6ACBF]">
+                <option>1</option><option>2</option><option>3</option>
+            </select>
+            <textarea id="mensaje" placeholder="Algún mensaje especial..." class="w-full border p-4 rounded-xl mb-5 focus:outline-none focus:ring-2 focus:ring-[#E6ACBF]"></textarea>
+            <button onclick="confirmar()" class="w-full bg-[#E6ACBF] hover:bg-pink-400 text-white py-4 rounded-xl font-bold transition">Confirmar por WhatsApp</button>
+        </div>
+    </div>
+</section>
+
+<div id="lightbox" class="lightbox" onclick="this.style.display='none'">
+    <img id="lightboxImg" src="" alt="Imagen ampliada">
+    <p class="absolute bottom-10 text-white text-sm">Toca para cerrar</p>
+</div>
+
+<script>
+    // 1. Detección automática de nombre y cantidad
+    const urlParams = new URLSearchParams(window.location.search);
+    const nombre = urlParams.get('nombre');
+    const cant = urlParams.get('cant');
+
+    if (nombre) document.getElementById('nombreInvitado').innerText = nombre;
+    if (cant) document.getElementById('cantInvitados').innerText = `y ${cant} acompañante(s)`;
+
+    // 2. Contador
+    const weddingDate = new Date("December 20, 2026 16:00:00");
+    setInterval(() => {
+        const now = new Date();
+        const diff = weddingDate - now;
+        document.getElementById("days").innerText = Math.floor(diff / (1000*60*60*24));
+        document.getElementById("hours").innerText = Math.floor((diff/(1000*60*60))%24);
+        document.getElementById("minutes").innerText = Math.floor((diff/(1000*60))%60);
+        document.getElementById("seconds").innerText = Math.floor((diff/1000)%60);
+    }, 1000);
+
+    // 3. Animaciones scroll
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add("show"); });
+    });
+    document.querySelectorAll(".fade-up").forEach(el => observer.observe(el));
+
+    // 4. Funciones Lightbox
+    function openLightbox(src) {
+        const lightbox = document.getElementById('lightbox');
+        const img = document.getElementById('lightboxImg');
+        img.src = src;
+        lightbox.style.display = 'flex';
+    }
+
+    // 5. WhatsApp
+    function confirmar() {
+        const nombre = document.getElementById("nombreForm").value;
+        const asistentes = document.getElementById("asistentes").value;
+        const mensaje = document.getElementById("mensaje").value;
+        if(!nombre) { alert("Por favor, ingresa tu nombre"); return; }
+        const texto = `💍 Confirmación de Boda\n\nNombre: ${nombre}\nAsistentes: ${asistentes}\nMensaje: ${mensaje}`;
+        window.open(`https://wa.me/50370000000?text=${encodeURIComponent(texto)}`, '_blank');
+    }
+
+    // 6. Pétalos Animados
+    const petalsContainer = document.getElementById('petals');
+    for(let i=0; i<35; i++) {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+        petal.innerHTML = '🌸';
+        petal.style.left = Math.random()*100+'%';
+        petal.style.animationDuration = (Math.random()*8+8)+'s';
+        petal.style.fontSize = (Math.random()*15+10)+'px';
+        petal.style.animationDelay = Math.random()*5+'s';
+        petalsContainer.appendChild(petal);
+    }
+</script>
+</body>
+</html>
