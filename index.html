@@ -15,6 +15,18 @@
             <p class="text-sm font-bold">Tu link personalizado:</p>
             <a id="link" target="_blank" class="text-blue-600 underline break-all"></a>
         </div>
+        <div id="resultado" class="mt-6 p-4 bg-gray-50 rounded hidden">
+    <p class="text-sm font-bold">Tu link personalizado:</p>
+
+    <a id="link" target="_blank" class="text-blue-600 underline break-all"></a>
+
+    <button
+        onclick="copiarLink()"
+        class="mt-3 w-full bg-green-500 hover:bg-green-600 text-white p-2 rounded-lg"
+    >
+        Copiar Link
+    </button>
+</div>
     </div>
 
 <script>
@@ -31,6 +43,17 @@
         document.getElementById('link').href = link;
         document.getElementById('link').innerText = link;
         document.getElementById('resultado').classList.remove('hidden');
+    }
+        function copiarLink() {
+        const link = document.getElementById('link').innerText;
+
+        navigator.clipboard.writeText(link)
+            .then(() => {
+                alert('✅ Link copiado al portapapeles');
+            })
+            .catch(() => {
+                alert('❌ No se pudo copiar el link');
+            });
     }
 </script>
     
