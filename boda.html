@@ -119,7 +119,7 @@
     <section class="hero-bg min-h-screen flex flex-col items-center justify-between text-center overflow-hidden px-4">
         <div class="mt-14 w-full">
             <p class="uppercase tracking-[6px] text-gray-700">Nos Casamos</p>
-            <h1 class="title text-6xl md:text-8xl gold">Iris & Carlos</h1>
+            <h1 class="title text-6xl md:text-8xl gold">Carlos & Iris</h1>
         </div>
         <div class="glass p-6 rounded-3xl max-full mx-2 mb-2">
             <p class="text-xl gold">Tenemos el honor de invitar a</p>
@@ -153,7 +153,7 @@
     <section id="galeria" class="pb-24 pt-12 px-6 fade-up">
         <div class="max-w-6xl mx-auto">
             <h2 class="title text-center text-4xl mb-4 text-[#E6ACBF]">✿ Nuestra Historia ✿</h2>
-            <p class="text-center gold mb-12 italic">"Cada momento a tu lado es un tesoro"</p>
+            <p class="text-center gold mb-12 italic">"Nuestro amor ya nos unió. Hoy, con la bendición de Dios, queremos celebrar este momento tan especial junto a nuestra familia y amigos. "</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="gallery-item shadow-lg" onclick="openLightbox(this.querySelector('img').src)"><img
                         style="object-position: top;" src="Foto vieja 1.jpeg" alt="Boda 1"></div>
@@ -211,26 +211,28 @@
         </div>
     </section>
 
-    <!-- CONFIRMACION -->
-    <section id="con" class="pb-24 pt-12 bg-[#fff8fb] fade-up">
-        <div class="max-w-xl mx-auto px-6">
-            <h2 class="title text-center text-3xl mb-10 text-[#E6ACBF]">✿ Confirmar Asistencia ✿</h2>
-            <div class="glass p-8 rounded-3xl shadow-lg">
-                <label class="block text-gray-600 mb-2 ml-1">Número de asistentes:</label>
-                <select id="asistentes"
-                    class="w-full border p-4 rounded-xl mb-4 focus:outline-none focus:ring-2 focus:ring-[#E6ACBF]">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-                <textarea id="mensaje" placeholder="Algún mensaje especial..."
-                    class="w-full border p-4 rounded-xl mb-5 focus:outline-none focus:ring-2 focus:ring-[#E6ACBF]"></textarea>
-                <button onclick="confirmar()"
-                    class="w-full bg-[#E6ACBF] hover:bg-pink-400 text-white py-4 rounded-xl font-bold transition">Confirmar
-                    por WhatsApp</button>
-            </div>
+<!-- CONFIRMACION -->
+<section id="con" class="pb-24 pt-12 bg-[#fff8fb] fade-up">
+    <div class="max-w-xl mx-auto px-6">
+        <h2 class="title text-center text-3xl mb-10 text-[#E6ACBF]">✿ Confirmar Asistencia ✿</h2>
+        <div class="glass p-8 rounded-3xl shadow-lg">
+            
+            <!-- Nuevo campo: Canción -->
+            <label class="block text-gray-600 mb-2 ml-1">Canción que no debe faltar en la fiesta:</label>
+            <input type="text" id="cancion" placeholder="Ej: La Chona, El Baile del Caballito, etc."
+                class="w-full border p-4 rounded-xl mb-4 focus:outline-none focus:ring-2 focus:ring-[#E6ACBF]">
+
+            <!-- Mensaje especial (se mantiene igual) -->
+            <textarea id="mensaje" placeholder="Algún mensaje especial..."
+                class="w-full border p-4 rounded-xl mb-5 focus:outline-none focus:ring-2 focus:ring-[#E6ACBF]"></textarea>
+
+            <button onclick="confirmar()"
+                class="w-full bg-[#E6ACBF] hover:bg-pink-400 text-white py-4 rounded-xl font-bold transition">
+                Confirmar por WhatsApp
+            </button>
         </div>
-    </section>
+    </div>
+</section>
 
     <div id="lightbox" class="lightbox" onclick="this.style.display='none'">
         <img id="lightboxImg" src="" alt="Imagen ampliada">
@@ -272,12 +274,17 @@
         }
 
         // 5. WhatsApp
-        function confirmar() {
-            const asistentes = document.getElementById("asistentes").value;
-            const mensaje = document.getElementById("mensaje").value;
-            const texto = `Hola Iris, aqui esta mi confirmación de Boda\n\nNombre: ${nombre}\nAsistentes: ${asistentes}\n\n ${mensaje}`;
-            window.open(`https://wa.me/13465638449?text=${encodeURIComponent(texto)}`, '_blank');
-        }
+function confirmar() {
+    const cancion = document.getElementById("cancion").value.trim();
+    const mensaje = document.getElementById("mensaje").value.trim();
+    
+    let texto = `Hola Iris, aquí está mi confirmación de boda\n\n`;
+    texto += `Nombre: ${nombre || 'Invitado'}\n`;
+    texto += `Canción que no debe faltar: ${cancion || 'No especificada'}\n\n`;
+    if (mensaje) texto += `Mensaje: ${mensaje}`;
+
+    window.open(`https://wa.me/13465638449?text=${encodeURIComponent(texto)}`, '_blank');
+}
 
         // 6. Pétalos Animados
         const petalsContainer = document.getElementById('petals');
